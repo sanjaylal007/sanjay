@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'zcartapp:allproduct' %}">Home</a>
+      </li>
+      <li class="nav-item dropdown {% if 'zcartapp' in request.path %} active {% endif %}">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Shop
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'zcartapp:allproduct' %}">All Products</a>
+            {% for i in links %}
+          <a class="dropdown-item" href="{{i.get_url}}">{{i.name}}</a>
+            {% endfor %}
+
+        </div>
+      </li>
+      {% if item_count > 0 %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'cartapp:cart_detail' "><i class="fa fa-shopping-cart">Cart</i>({{item_count}})</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href=""><i class="fa fa-heart"></i> Wishlist</a>
+      <li class="nav-item" >
+        <a class="nav-link" href=""> Top Offers </a>
+      </li>
+
+    </ul>
+    <form class="d-flex" action="{% url 'searchapp:search' %}" method="get">
+      {% csrf_token %}
+      <input class="form-control me-2" type="search" placeholder="Search Product" name="q" aria-label="Search">
+      <button class="btn btn-outline-success " type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+</nav>
+
+<!--<nav>-->
+<!--    <ul>-->
+<!--        <li><a href="{% url 'zcartapp:allproduct' %}">All Products</a></li>-->
+<!--        {% for i in links %}-->
+<!--        <li><a href="{{i.get_url}}">{{i.name}}</a></li>-->
+<!--        {% endfor %}-->
+<!--        <li></li>-->
+<!--        <li> Wishlist()</li>-->
+<!--    </ul>-->
+<!--</nav>-->
+<!--{% if 'zcartapp' in request.path %} active {% endif %}-->

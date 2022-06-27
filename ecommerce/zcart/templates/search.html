@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+            Welcome To Zcart Where You Can Buy Anythings
+{% endblock %}
+{% block title%}
+    search
+{% endblock %}
+{% block content %}
+<div>
+    <p class="text-cnter my_search_text">Search Result For:<b>"{{query}}"</b></p>
+</div>
+<div class="container">
+    <div class="row mx_auto">
+        {% for products in products %}
+        <div class="my_bottom_margin col-9 col-sm-12 col=md-3 col-lg-3">
+            <div class="card text-center" style="min-width:18rem;">
+                <a href="{{products.get_url}}"><img class="card-img-top my_image" src="{{products.image.url}}" alt="{{products.name}}" width="300px" height="300px"></a>
+                    <div class="card-body">
+                    <h3>{{products.name}}</h3>
+                    <h5>{{products.price}}</h5>
+                    </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="rpw mx-auto">
+            <p class="text-center my_search_text"> No Result Found</p>
+        </div>
+        {% endfor %}
+     </div>
+ </div>
+{% endblock %}

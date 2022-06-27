@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+My Cart
+{% endblock %}
+{% block title%}
+    Cart Zcart
+{% endblock %}
+{% block content %}
+{% if not cart_items %}
+
+<div>
+    <div class="text-center">
+        <br>
+            <h1 class="text-center my_title">
+            Your cart is empty!
+            </h1>
+        <br>
+            <p class="text-center">
+                <a class="btn btn-primary" href="{% url 'zcartapp:allproduct' %}">Shop Items</a><br>
+                It's a good day to buy Your favorite items
+            </p>
+    </div>
+</div>
+{% else %}
+<div class="text-center">
+    <br>
+        <h1 class="text-center my_title">
+            Shopping Cart
+        </h1>
+    <br>
+</div>
+<div class="row mx-auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="table my_custom_table_a">
+            <thead class="my_custom_t_head">
+                <tr>
+                    <th colspan="5">
+                        Your Shopping Cart
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for cart_item in cart_items %}
+                <tr>
+                    <td>
+                        <a href="cart_item.product.get_absolute_url"><img src="{{cart_item.product.image.url}}"  width="200px;" height="200px;" alt="" class="float-left rounded custome_image"></a>
+                    </td>
+                    <td class="text-left">
+                        <h5>{{cart_item.product.name}}</h5>
+                        {{cart_item_product.id}}
+                        Total Price: $ {{cart_item.product.price}}
+                        <br>
+                        Quantity: {{cart_item.quantity}}
+                        <br>
+                        {{cart_item}}
+                        </td>
+                        <td>
+                            <h4>$ {{cart_item.sub_total}}</h4>
+                        </td>
+                        {% if cart_item.quantity < cart_item.product.stock %}
+                        <td>
+                            <a href="{% url 'cartapp:cart_remove' cart_item.product.id %}" class="custom_a"> <i class="fa fa-minus-circle"></i></a>  {{cart_item.quantity}}
+                            &nbsp;<a href="{% url 'cartapp:add_cart' cart_item.product.id %}" class="custom_a"><i class="fa fa-plus-circle"></i></a>
+                            &nbsp;<a href="{% url 'cartapp:delete' cart_item.product.id %}" class="custom_delete"><i class="fa fa-trash"></i></a>
+<!--                            cart6 video-->
+                        </td>
+                        {% else %}
+                        <td>
+                            &nbsp;<a href="{% url 'cartapp:cart_remove' cart_item.product.id %}" class="custom_a"> <i class="fa fa-minus-circle"></i></a>
+                            <br>
+                            &nbsp;<a href="{% url 'cartapp:delete' cart_item.product.id %}" class="custom_delete"><i class="fa fa-trash"></i></a>
+<!--                            cart6 video-->
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row mx-auto">
+    <div class="col-12 com-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="table my_custom_table">
+            <thead class="my_custom_t_head">
+                <tr>
+                <th>
+                    Place Order
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>
+                    Safe and Secure Payments.Easy returns.100% Authentic products.
+                </td>
+                </tr>
+                <tr>
+                <td class="text-left">
+                    Your Total Amount : <strong> {{ total }}</strong>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mx-auto">
+            <a href="{% url 'zcartapp:allproduct' %}" class="btn btn-success btn-block my_custom_button">Place Order</a>
+        </div>
+        <div class="mx-auto">
+            <a href="{% url 'zcartapp:allproduct' %}" class="btn btn-primary btn-block my_custom_button"> Continue Shopping</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
